@@ -24,6 +24,14 @@ describe('AuthRouter', function() {
 						expect(res.status).toBe(201);
 					});
 			});
+			it('should return with json', function() {
+				return request(server)
+					.post('/api/login')
+					.send({ username: 'Lindsay', password: 'Honey' })
+					.then(res => {
+						expect(res.type).toMatch(/json/i);
+					});
+			});
 		});
 	});
 });
