@@ -15,7 +15,25 @@ describe('AuthRouter', function() {
 		beforeEach(async function() {
 			await db('users').truncate();
 		});
-		describe('add user', function() {
+		describe('Register user', function() {
+			it('should return a 201 ok', function() {
+				return request(server)
+					.post('/api/register')
+					.send({ username: 'Jeremy', password: 'Bear' })
+					.then(res => {
+						expect(res.status).toBe(201);
+					});
+			});
+			it('should return with json', function() {
+				return request(server)
+					.post('/api/register')
+					.send({ username: 'Lindsay', password: 'Honey' })
+					.then(res => {
+						expect(res.type).toMatch(/json/i);
+					});
+			});
+		});
+		describe('Login user', function() {
 			it('should return a 201 ok', function() {
 				return request(server)
 					.post('/api/login')
@@ -24,7 +42,7 @@ describe('AuthRouter', function() {
 						expect(res.status).toBe(201);
 					});
 			});
-			it('should return with json', function() {
+			it('should return json', function() {
 				return request(server)
 					.post('/api/login')
 					.send({ username: 'Lindsay', password: 'Honey' })
