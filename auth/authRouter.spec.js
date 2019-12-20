@@ -18,7 +18,7 @@ describe('AuthRouter', function() {
 		describe('Register user', function() {
 			it('should return a 201 ok', function() {
 				return request(server)
-					.post('/api/register')
+					.post('/api/auth/register')
 					.send({ username: 'Jeremy', password: 'Bear' })
 					.then(res => {
 						expect(res.status).toBe(201);
@@ -26,7 +26,7 @@ describe('AuthRouter', function() {
 			});
 			it('should return with json', function() {
 				return request(server)
-					.post('/api/register')
+					.post('/api/auth/register')
 					.send({ username: 'Lindsay', password: 'Honey' })
 					.then(res => {
 						expect(res.type).toMatch(/json/i);
@@ -34,17 +34,17 @@ describe('AuthRouter', function() {
 			});
 		});
 		describe('Login user', function() {
-			it('should return a 201 ok', function() {
+			it('Login Should fail with 401 when bcryptCompare has wrong password', function() {
 				return request(server)
-					.post('/api/login')
-					.send({ username: 'Jeremy', password: 'Bear' })
+					.post('/api/auth/login')
+					.send({ username: 'Jeremy', password: 'Kumquat' })
 					.then(res => {
-						expect(res.status).toBe(201);
+						expect(res.status).toBe(401);
 					});
 			});
 			it('should return json', function() {
 				return request(server)
-					.post('/api/login')
+					.post('/api/auth/login')
 					.send({ username: 'Lindsay', password: 'Honey' })
 					.then(res => {
 						expect(res.type).toMatch(/json/i);

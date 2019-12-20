@@ -19,10 +19,8 @@ function getBy(username) {
 function add(user) {
 	return db('users')
 		.insert(user, 'id')
-		.then(ids => {
-			const [id] = ids;
-			return findById(id);
-		});
+		.returning('id');
+		
 }
 
 function findById(id) {

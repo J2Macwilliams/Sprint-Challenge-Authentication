@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 const signToken = require('../JWT/signToken');
 
 //Pull in knex helper models
-const  userDb = require('../models/userDb');
+const  userDb = require('../model/userDb');
 
 router.post('/register', (req, res) => {
   // implement registration
@@ -20,7 +20,7 @@ router.post('/register', (req, res) => {
 	userDb
 		.add(user)
 		.then(stored => {
-			res.status(200).json(stored);
+			res.status(201).json(stored);
 		})
 		.catch(err => {
 			res.status(500).json(err);
@@ -40,7 +40,7 @@ router.post('/login', (req, res) => {
 		  const token = signToken(user); 
   
 		  // send the token
-		  res.status(200).json({
+		  res.status(201).json({
 			token, 
 			message: `Welcome ${user.username}!`,
 		  });
